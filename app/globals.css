@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Reveal suave dos blocos no carregamento (stagger via animation-delay inline). */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  animation: reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* O arco do medidor "cresce" ao carregar. */
+@keyframes gauge-grow {
+  from {
+    stroke-dashoffset: var(--gauge-circumference);
+  }
+}
+.gauge-arc {
+  animation: gauge-grow 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .gauge-arc {
+    animation: none;
+  }
+}
+
+/* Impressão / "Salvar como PDF": fundo branco, preserva cores e mantém o
+   layout compacto (sem quebrar cards no meio, sem animações). */
+@page {
+  margin: 12mm;
+}
+@media print {
+  body {
+    background: #ffffff;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Anima nada na impressão: mostra o estado final direto. */
+  .reveal,
+  .gauge-arc {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Evita cortar cards e o hero entre páginas. */
+  .break-inside-avoid,
+  section {
+    break-inside: avoid;
+  }
+}
