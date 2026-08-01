@@ -13,6 +13,7 @@ import ScoreRadarChart from "@/components/ScoreRadarChart";
 import ScoreGauge from "@/components/ScoreGauge";
 import SectionCard from "@/components/SectionCard";
 import PaywallGate from "@/components/PaywallGate";
+import PixDonation from "@/components/PixDonation";
 
 interface AnalysisPayload {
   id: string;
@@ -245,6 +246,9 @@ export default function AnalysisPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </section>
+
+      {/* Doação via PIX */}
+      <PixDonation />
 
       <p className="mt-10 text-center text-xs text-gray-400">
         Gerado por IA · Analisador de Perfil do LinkedIn
