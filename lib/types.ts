@@ -51,11 +51,13 @@ export type SectionKey =
 
 /** Checklist de itens objetivos (marcados como true/false pelo modelo). */
 export interface Checklist {
-  openToWork: boolean;
+  structuredHeadline: boolean;
   keywordsInHeadline: boolean;
-  fivePlusSkills: boolean;
   hasAbout: boolean;
+  fivePlusSkills: boolean;
   quantifiedResults: boolean;
+  hasLocation: boolean;
+  openToWork: boolean;
   [key: string]: boolean; // permite o modelo adicionar itens extras
 }
 

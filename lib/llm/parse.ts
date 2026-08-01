@@ -88,11 +88,13 @@ export function normalizeResult(raw: unknown): AnalysisResult {
     overallScore: computeOverallScore(sections),
     sections,
     checklist: {
-      openToWork: bool(rawChecklist.openToWork),
+      structuredHeadline: bool(rawChecklist.structuredHeadline),
       keywordsInHeadline: bool(rawChecklist.keywordsInHeadline),
-      fivePlusSkills: bool(rawChecklist.fivePlusSkills),
       hasAbout: bool(rawChecklist.hasAbout),
+      fivePlusSkills: bool(rawChecklist.fivePlusSkills),
       quantifiedResults: bool(rawChecklist.quantifiedResults),
+      hasLocation: bool(rawChecklist.hasLocation),
+      openToWork: bool(rawChecklist.openToWork),
     },
   };
 }

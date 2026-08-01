@@ -18,11 +18,13 @@ const OUTPUT_SCHEMA = `{
     "seo":          { "evaluated": <bool>, "score": <0-10>, "strengths": [<string>], "issues": [<string>], "suggestionPT": <string>, "suggestionEN": <string> }
   },
   "checklist": {
-    "openToWork": <bool>,
+    "structuredHeadline": <bool>,
     "keywordsInHeadline": <bool>,
-    "fivePlusSkills": <bool>,
     "hasAbout": <bool>,
-    "quantifiedResults": <bool>
+    "fivePlusSkills": <bool>,
+    "quantifiedResults": <bool>,
+    "hasLocation": <bool>,
+    "openToWork": <bool>
   }
 }`;
 
@@ -48,21 +50,27 @@ REGRAS OBRIGATÓRIAS:
 RUBRICA DE NOTAS POR SEÇÃO (0 a 10):
 - headline: 9-10 = cargo + especialidade + proposta de valor + palavras-chave buscáveis.
   5-6 = só o cargo atual. 0-2 = vazio ou genérico ("Profissional").
-- about: 9-10 = história clara, resultados, palavras-chave e chamada para ação, bem formatado.
-  5-6 = presente mas curto/genérico. 0-2 = vazio.
-- experience: 9-10 = cada cargo com verbos de ação e resultados quantificados.
-  5-6 = descrições vagas sem números. 0-2 = só títulos de cargo, sem descrição.
+- about: 9-10 = escrito em 1ª PESSOA, com história clara, realizações COM MÉTRICAS,
+  palavras-chave da área, chamada para ação, e terminando com um bloco de
+  "Competências e Tecnologias-Chave". 5-6 = presente mas curto/genérico, OU não está
+  em 1ª pessoa, OU sem o bloco de competências. 0-2 = vazio.
+- experience: 9-10 = cada cargo com verbos de ação, resultados quantificados E
+  repetição estratégica dos TERMOS TÉCNICOS da área (isso aumenta a relevância nas
+  buscas booleanas que os recrutadores usam). 5-6 = descrições vagas, sem números OU
+  sem palavras-chave técnicas. 0-2 = só títulos de cargo, sem descrição.
 - completeness: avalia o quão completo está o perfil como um todo (foto implícita pelo texto,
   seções preenchidas, skills). 9-10 = tudo preenchido. 0-2 = quase tudo em branco.
 - seo: avalia densidade e relevância de palavras-chave da área para ser encontrado em buscas.
   9-10 = palavras-chave fortes e naturais na headline e no about. 0-2 = nenhuma palavra-chave.
 
 CHECKLIST (marque true/false honestamente):
-- openToWork: o texto sugere que a pessoa está aberta a oportunidades?
+- structuredHeadline: a headline segue o formato [Cargo] | [Especialidade] | [Resultado/Ferramenta]?
 - keywordsInHeadline: a headline tem palavras-chave da área?
-- fivePlusSkills: há 5 ou mais competências listadas?
 - hasAbout: a seção Sobre está preenchida?
+- fivePlusSkills: há 5 ou mais competências listadas?
 - quantifiedResults: há pelo menos um resultado com número/percentual?
+- hasLocation: a localização (cidade/país) está preenchida?
+- openToWork: o texto sugere que a pessoa está aberta a oportunidades?
 
 A nota "overallScore" (0-100) deve refletir a média ponderada das seções,
 dando mais peso para headline, about e experience.

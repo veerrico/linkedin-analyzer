@@ -157,9 +157,10 @@ export default function HomePage() {
       </form>
 
       <p className="mx-auto mt-6 max-w-xl text-center text-xs text-gray-400">
-        Ferramenta desenvolvida para ajudar profissionais a melhorarem seu
-        perfil de acordo com o algoritmo 360 Brew do LinkedIn. Seus dados são
-        utilizados pela API da ferramenta e depois descartados.
+        Ferramenta que analisa seu perfil e sugere melhorias de texto e SEO para
+        você ser mais encontrado por recrutadores nas buscas do LinkedIn. Seus
+        dados são processados pela API de IA apenas para gerar a análise e, em
+        seguida, descartados.
       </p>
     </main>
   );

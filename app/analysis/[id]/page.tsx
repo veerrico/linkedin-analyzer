@@ -30,11 +30,13 @@ const SECTION_TITLES: { key: SectionKey; title: string }[] = [
 ];
 
 const CHECKLIST_LABELS: Record<string, string> = {
-  openToWork: "Sinaliza abertura a oportunidades",
+  structuredHeadline: "Headline no formato [Cargo] | [Especialidade] | [Resultado]",
   keywordsInHeadline: "Palavras-chave na headline",
-  fivePlusSkills: "5 ou mais competências",
   hasAbout: "Seção 'Sobre' preenchida",
+  fivePlusSkills: "5 ou mais competências",
   quantifiedResults: "Resultados quantificados",
+  hasLocation: "Localização (cidade/país) preenchida",
+  openToWork: "Sinaliza abertura a oportunidades",
 };
 
 /** Faixas de qualidade da nota geral (0-100). */
@@ -205,6 +207,44 @@ export default function AnalysisPage({ params }: { params: { id: string } }) {
           ))}
         </section>
       </PaywallGate>
+
+      {/* Boas práticas que não dá pra medir a partir do PDF */}
+      <section className="reveal mt-8 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6">
+        <h2 className="text-lg font-semibold text-gray-900">
+          Boas práticas que o PDF não mede
+        </h2>
+        <p className="mt-1 text-sm text-gray-500">
+          A análise acima cobre o texto do seu perfil. Estes sinais também pesam
+          no algoritmo do LinkedIn, mas não aparecem no PDF exportado — vale
+          conferir manualmente.
+        </p>
+
+        <div className="mt-4 grid gap-6 sm:grid-cols-2">
+          <div>
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-indigo-700">
+              Indexação (ser encontrado)
+            </h3>
+            <ul className="space-y-1.5 text-sm text-gray-700">
+              <li>📸 Foto de perfil profissional</li>
+              <li>🖼️ Banner contextualizado com sua área</li>
+              <li>📍 Localização precisa (cidade e país)</li>
+              <li>🤝 500+ conexões relevantes do seu setor</li>
+              <li>🟢 &quot;Open to Work&quot; ativo (pode ser só para recrutadores)</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-indigo-700">
+              Autoridade no feed
+            </h3>
+            <ul className="space-y-1.5 text-sm text-gray-700">
+              <li>💬 Comente com opinião técnica em posts de líderes da área</li>
+              <li>🎠 Publique em formatos que retêm atenção (carrossel, vídeo)</li>
+              <li>✨ Priorize autenticidade — conteúdo genérico é penalizado e
+                interações reais elevam seu SSI</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <p className="mt-10 text-center text-xs text-gray-400">
         Gerado por IA · Analisador de Perfil do LinkedIn
