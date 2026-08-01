@@ -7,6 +7,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import PixDonation from "@/components/PixDonation";
 
 export default function HomePage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function HomePage() {
   const [dragActive, setDragActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPix, setShowPix] = useState(false);
 
   // Valida e seleciona um arquivo (usado tanto no clique quanto no arrastar).
   function pickFile(f: File | null) {
@@ -162,6 +164,18 @@ export default function HomePage() {
         dados são processados pela API de IA apenas para gerar a análise e, em
         seguida, descartados.
       </p>
+
+      {/* Apoio ao projeto (discreto, expande o bloco de doação PIX) */}
+      <div className="mt-4 text-center">
+        <button
+          type="button"
+          onClick={() => setShowPix((v) => !v)}
+          className="text-xs font-medium text-emerald-700 hover:underline"
+        >
+          💙 Apoiar o projeto
+        </button>
+      </div>
+      {showPix && <PixDonation />}
     </main>
   );
 }
