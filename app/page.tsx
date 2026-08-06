@@ -5,7 +5,7 @@
 // solta aqui e recebe a análise. Ao enviar, chamamos /api/analyze,
 // guardamos o resultado no sessionStorage e vamos para /analysis/[id].
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PixDonation from "@/components/PixDonation";
 
@@ -16,6 +16,15 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPix, setShowPix] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+
+  // Cronômetro: enquanto está analisando, incrementa 1s por vez.
+  useEffect(() => {
+    if (!loading) return;
+    setElapsed(0);
+    const timer = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => clearInterval(timer);
+  }, [loading]);
 
   // Valida e seleciona um arquivo (usado tanto no clique quanto no arrastar).
   function pickFile(f: File | null) {
@@ -152,10 +161,24 @@ export default function HomePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-indigo-600 px-4 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Analisando com IA..." : "Analisar meu perfil"}
+          {loading ? (
+            <>
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              Analisando com IA... {elapsed}s
+            </>
+          ) : (
+            "Analisar meu perfil"
+          )}
         </button>
+
+        {loading && (
+          <p className="text-center text-xs text-gray-500">
+            A IA está lendo seu perfil — isso costuma levar de 20 a 40 segundos.
+            Não feche esta página. ⏳
+          </p>
+        )}
       </form>
 
       <p className="mx-auto mt-6 max-w-xl text-center text-xs text-gray-400">
