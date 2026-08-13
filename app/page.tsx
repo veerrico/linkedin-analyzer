@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 import PixDonation from "@/components/PixDonation";
 
 export default function HomePage() {
@@ -62,6 +63,9 @@ export default function HomePage() {
         setError(data.error || "Falha ao analisar o perfil.");
         return;
       }
+
+      // Métrica: conta uma análise concluída com sucesso (Vercel Analytics).
+      track("analise_concluida", { provider: data.providerUsed ?? "desconhecido" });
 
       sessionStorage.setItem(`analysis:${data.id}`, JSON.stringify(data));
       router.push(`/analysis/${data.id}`);
